@@ -12,7 +12,17 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Петя'},
 ]
-# ???
+
+name_count = {}
+for student in students:
+    name = student['first_name']
+    if name in name_count:
+        name_count[name] += 1
+    else:
+        name_count[name] = 1
+
+for name, count in name_count.items():
+    print(f"{name}: {count}")
 
 
 # Задание 2
@@ -26,8 +36,15 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Оля'},
 ]
-# ???
-
+name_count = {}
+for student in students:
+    name = student['first_name']
+    if name in name_count:
+        name_count[name] += 1
+    else:
+        name_count[name] = 1
+max_name = max(name_count, key=name_count.get)
+print(f"Самое частое имя среди учеников: {max_name}")
 
 # Задание 3
 # Есть список учеников в нескольких классах, нужно вывести самое частое имя в каждом классе.
@@ -51,8 +68,19 @@ school_students = [
         {'first_name': 'Саша'},
     ],
 ]
-# ???
-
+class_number=1
+for groups in school_students:
+    name_count={}
+    group=groups
+    for student in group:
+        name = student['first_name']
+        if name in name_count:
+            name_count[name] += 1
+        else:
+            name_count[name] = 1
+    max_name = max(name_count, key=name_count.get)
+    print(f"самое частое имя в классе {class_number}: {max_name}")
+    class_number+=1
 
 # Задание 4
 # Для каждого класса нужно вывести количество девочек и мальчиков в нём.
@@ -72,7 +100,17 @@ is_male = {
     'Миша': True,
     'Даша': False,
 }
-# ???
+
+for groups in school:
+    man_cnt=0
+    woman_cnt=0
+    for student in groups['students']:
+        for name in student.values():
+            if is_male[name]:
+                man_cnt += 1
+            else:
+                woman_cnt += 1    
+    print(f"Класс {groups['class']}: девочки {woman_cnt}, мальчики {man_cnt}" )
 
 
 # Задание 5
@@ -91,5 +129,28 @@ is_male = {
     'Олег': True,
     'Миша': True,
 }
-# ???
+most_boys_class = ''
+most_girls_class = ''
+max_men = 0
+max_women = 0
+
+for groups in school:
+    man_cnt=0
+    woman_cnt=0
+    class_name=groups['class']
+    for student in groups['students']:
+        name = student['first_name']
+        if is_male[name]:
+            man_cnt += 1
+        else:
+            woman_cnt += 1
+    if man_cnt > max_men:
+        max_men=man_cnt
+        most_boys_class=class_name
+    if woman_cnt > max_women:
+        max_women = woman_cnt
+        most_girls_class = class_name    
+    
+print(f"Больше всего мальчиков в классе {most_boys_class}")
+print(f"Больше всего девочек в классе {most_girls_class}")
 
